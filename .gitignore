@@ -1,0 +1,24 @@
+# Competition data, models and predictions remain local.
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.env.*
+*.csv
+*.parquet
+*.zip
+*.pkl
+*.joblib
+*.ubj
+*.pdf
+*.pptx
+*.log
+*.key
+*.pem
+data/
+train/
+test/
+models/
+features/
+outputs/
+tmp/
