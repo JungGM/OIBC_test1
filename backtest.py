@@ -27,11 +27,11 @@ THREADS = 4
 START = pd.Timestamp("2022-01-01 01:00", tz=TZ)
 END = pd.Timestamp("2025-06-01 00:00", tz=TZ)
 TUNE_START = pd.Timestamp("2023-01-01 01:00", tz=TZ)
-TUNE_END = pd.Timestamp("2023-07-01 00:00", tz=TZ)
+TUNE_END = pd.Timestamp("2023-06-30 17:00", tz=TZ)
 CAL_START = pd.Timestamp("2023-07-01 01:00", tz=TZ)
-CAL_END = pd.Timestamp("2023-10-01 00:00", tz=TZ)
+CAL_END = pd.Timestamp("2023-09-30 17:00", tz=TZ)
 CHECK_START = pd.Timestamp("2023-10-01 01:00", tz=TZ)
-CHECK_END = pd.Timestamp("2024-01-01 00:00", tz=TZ)
+CHECK_END = pd.Timestamp("2023-12-31 17:00", tz=TZ)
 TEST_START = pd.Timestamp("2024-01-01 01:00", tz=TZ)
 FULL_CUTOFF = pd.Timestamp("2023-12-31 17:00", tz=TZ)
 T0 = time.time()
@@ -393,6 +393,9 @@ def main():
     ap.add_argument("--data", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
     args = ap.parse_args()
+    for previous_end, next_start in [(TUNE_END, CAL_START), (CAL_END, CHECK_START), (CHECK_END, TEST_START)]:
+        if previous_end > issue_deadline([next_start])[0]:
+            raise ValueError("Selection uses data after the next forecast deadline")
     data, out = args.data.resolve(), args.out.resolve()
     if "onedrive" in str(out).lower():
         raise ValueError("Use a local result directory outside OneDrive")

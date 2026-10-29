@@ -6,10 +6,14 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from backtest import issue_deadline, penalty, robust_absolute_loss, design, forecast_day_mean, optimize_groups
+from backtest import issue_deadline, penalty, robust_absolute_loss, design, forecast_day_mean, optimize_groups, TUNE_END, CAL_START, CAL_END, CHECK_START, CHECK_END, TEST_START
 
 
 class BacktestContract(unittest.TestCase):
+    def test_group_selection_ends_by_first_forecast_deadline(self):
+        for end, start in [(TUNE_END, CAL_START), (CAL_END, CHECK_START), (CHECK_END, TEST_START)]:
+            self.assertLessEqual(end, issue_deadline([start])[0])
+
     def test_settlement_matches_hand_calculation(self):
         # Revenue=2,500; weighted abs error=450+600=1,050; penalty=105.
         score = penalty([10, 20], [13, 16], [150, 50], [1, 3])
