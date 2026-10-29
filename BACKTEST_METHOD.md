@@ -1,7 +1,7 @@
 # 2022~2023 학습 / 2024~2025년 5월 검증 설계
 
 이 실험은 공식 제출이 아닌 로컬 백테스트다. 원본 배포 폴더는 읽기만 하며,
-모델·특징·발전소별 예측은 `<LOCAL_OUTPUT_DIR>`에 저장한다.
+모델·특징·발전소별 예측은 `C:\Users\jgm20\OIBC_local\backtest_20261029`에 저장한다.
 
 ## 기간부터 바로잡기
 
@@ -100,7 +100,7 @@ XGBoost는 17시 예보를 기본으로 10시와의 차이, 제공사 간 차이
 ```powershell
 py -m pip install -r requirements-backtest.txt
 py -m unittest test_backtest test_validator -v
-py -X utf8 backtest.py --data "C:\OIBC_data\01_participant_dataset" --out "C:\OIBC_local\backtest_new_run"
+py -X utf8 backtest.py --data "C:\Users\jgm20\OneDrive\바탕 화면\handover 2\01_participant_dataset" --out "C:\Users\jgm20\OIBC_local\backtest_new_run"
 ```
 
 완료된 실행 폴더를 덮어쓰지 않는다. `audit.json`에는 원본 해시, `ga_history.json`에는 설정 탐색,
